@@ -5,12 +5,14 @@
 </head>
 <body>
 <script>
-    function get_argument(arg){
-        return arg*1000;
+    var numbering = function (){
+        i = 0;
+        while(i < 10){
+            document.write(i);
+            i++;
+        }   
     }
-
-    alert(get_argument(1));
-    alert(get_argument(2));
+    numbering();
 
 </script>
 </body>
