@@ -6,13 +6,9 @@
 <body>
 <script>
     for(var i = 0; i < 10; i++){
-        if(i === 5){
-            continue;
+        for(var j = 0; j < 10; j++){
+            document.write("Coding everybody "+String(i)+String(j)+"<br/ >");
         }
-        if(i === 8){
-            break;
-        }
-        document.write("Coding everybody "+i+" <br />");
     }
 </script>
 </body>
