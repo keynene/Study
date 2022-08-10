@@ -5,15 +5,12 @@
 </head>
 <body>
 <script>
-    function get_members(){
-        return ['egoing', 'k8805', 'sorialgi', 'noi'];
-    }
-
-    members = get_members(); //호출시 memebers[0],membrs[1] ...
-
-    for(var i = 0; i < members.length; i++){
-       document.write(members[i].toUpperCase()+"<br />");
-    }
+    var li = ['a', 'b', 'c', 'd', 'e']
+    li.push('f');  //꼬리에 1개 값 추가
+    li = li.concat('g','h');  //꼬리에 여러개 값 추가
+    li.unshift('z', 'x');  //머리에 여러개 값 추가
+    li.splice(2,0,'B','C');  //splice(index,howmany,값)
+    alert(li);
 
 </script>
 </body>
