@@ -8,7 +8,7 @@ a = {
 //a : key, b : value
 
 function cal(key, num){
-    return key(num)
+    return key(num) 
 }
 function increase(num){
     return num+1
@@ -42,10 +42,30 @@ for(var i = 0; i < process.length; i++){  //i는 배열의 인덱스를 의미
 }
 console.log(input);
 
-//콜백 예제
-function sortNumber(a,b){
-    // 위의 예제와 비교해서 a와 b의 순서를 바꾸면 정렬순서가 반대가 된다.
-    return b-a;
-}
+
+
+
+
+
+//값으로 변환전
 var numbers = [20, 10, 9,8,7,6,5,4,3,2,1];
-console.log(numbers.sort(sortNumber)); // array, [20,10,9,8,7,6,5,4,3,2,1]
+function sortfunc(a,b){
+    console.log(a,b);
+    if(a > b){
+        return 1;
+    } else if(a < b){
+        return -1;
+    } else {
+        return 0;
+    }
+}
+console.log(numbers.sort(sortfunc));
+
+//값으로 변환후 (간결해짐)
+var numbers = [20, 10, 9,8,7,6,5,4,3,2,1];
+var sortfunc = function(a,b){
+    return a-b;
+}
+console.log(numbers.sort(sortfunc));
+
+
