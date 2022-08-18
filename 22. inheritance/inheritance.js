@@ -61,6 +61,7 @@ console.log(p2.design()+'\n');
 
 
 
+
 /* Prototype chain 예제 */
 function Ultra(){}
 Ultra.prototype.ultraProp = true;  //key : UltraProp, value : true인 객체를 선언한 것이라고 할 수 있음 (자식에게 상속하기 위해 prototype 이용)
