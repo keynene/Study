@@ -19,8 +19,13 @@ Person.prototype.introduce = function(){
     return 'My name is '+this.name;
 }
 function Programmer(name){
-    this.name = name;
+    var a = 0
+    this.a = name;
+    return a;
 }
+
+console.log(Programmer(1))
+
 Programmer.prototype = new Person();
 var p1 = new Person('keynene');
 console.log(p1.introduce()+'\n');
