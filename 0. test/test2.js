@@ -2,6 +2,7 @@ function Auto(){
     this.engine = 0;
     this.speed = 0;
     
+    
     this.engineOn = function(){
         this.engine = 1;
     }
