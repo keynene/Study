@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <input type="button" value="confirm" onclick="func_confirm()" />
+    <input type="button" value="prompt" onclick="func_prompt()" />
+    <script>
+        //확인창(confirm)
+        function func_confirm(){
+            if(confirm('ok?')){  //사용자에게 보여지는 메세지 (확인창 생성)
+                alert('ok');
+            } else {
+                alert('cancel');
+            }
+        }
+        //입력창(prompt)
+        function func_prompt(){
+            if(prompt('id?') === 'keynene'){  //입력값 받음 + keynene와 같은지 확인
+                alert('welcome');
+            } else {
+                alert('fail');
+            }
+        }
+    </script>
+</body>
+</html>
