@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Compare</title>
+</head>
+<body>
+<script>
+    var id = prompt('아이디를 입력해주세요');
+    if(id == ''){
+        alert('아이디를 입력해주세요');
+    } else{
+        var password = prompt('비밀번호를 입력해주세요');
+        if(password == ''){
+            alert('비밀번호를 입력해주세요');
+        } else{
+            if((id == 'noi' || id == 'jhj') && password == '11111'){
+                alert('인증되었습니다.');
+            } else {
+                alert('인증에 실패하였습니다.');
+            }
+        }
+    }
+</script>
+</body>
+</html>
