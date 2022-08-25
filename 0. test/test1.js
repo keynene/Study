@@ -30,7 +30,7 @@ function Person(name, age, w , h ){
 }
 
 
-var j = new Person('jang',27,60,165);
+var j = new Person('jang',27,60,168);
 j.state(); // 상태보기
 
 j.eat(5)
