@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+    </ul>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+    var li = $('li'); //li속성을 li라는 변수에 반환 (유사배열로 저장됨)
+    /* 저장값 확인 */
+    for(var i=0; i<li.length; i++){
+        console.log(li[i]);
+    }
+
+    /* 이상태로 요소변경 가능? (불가능 : DOM객체이기 때문에 jQuery로 접근 불가능) */
+    for(var i=0; i<li.length; i++){
+        console.log(li[i].css('color','red')); //불가능
+    }
+
+    /* jQuery 선언하므로써 위 예제 가능 */
+    for(var i=0; i<li.length; i++){
+        console.log($(li[i]).css('color','red')); //jQuery함수로 선언하므로써 jQuery로 접근가능
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+<ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+</ul>
+<ol>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+</ol>
+<script>
+    /* 문서 전체에서 li속성 변경 */
+    var lis = document.getElementsByTagName('li'); 
+    for(var i=0; i<lis.length; i++){
+        lis[i].style.color='red';
+    }
+    //getElementsByTagName() : ()안의 내용을 가진 태그 내용/속성 변경
+
+    /* ul에서 li속성 변경 */
+    var ul = document.getElementsByTagName('ul')[0];  //ul의 첫번째 인덱스
+    var lis = ul.getElementsByTagName('li'); 
+    for(var i=0; i<lis.length; i++){
+        lis[i].style.color='red';
+    }
+</script>
+</body>
+</html>
