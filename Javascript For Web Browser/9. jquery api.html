@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <a id="target" href="https://github.com/keynene">keynene github</a>
+    <ul>
+        <li class="marked">html</li>
+        <li>css</li>
+        <li id="active">JavaScript
+            <ul>
+                <li>JavaScript</li>
+                <li class="marked">DOM</li>
+                <li class="marked">BOM</li>
+            </ul>
+        </li>
+    </ul>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+    /* jquery를 이용하여 속성변경 */
+    var t = $('#target');
+    console.log(t.attr('href'));
+    t.attr('title','github.com/keynene'); // title추가 (setAttribute)
+    t.removeAttr('title'); //title삭제 (removeAttribute)
+
+    /* jquery 조회범위 제한 */
+    $(".marked","#active").css("background-color","red"); //active의 marked만 배경색 레드
+    $("#active .marked").css("background-color","red"); //위와 동일
+    $('#active').find('.marked').css("backgound-color","red"); //find 사용
+    $('#active').css('color','blue').find('.marked').css('background-color','red'); //active 글자색 블루, marked 배경색 레드
+</script>
+</body>
+</html>
