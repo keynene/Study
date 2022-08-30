@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <a id="target" href="https://github.com/keynene" title="keynene">keynene github</a>
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li id="active" class="important current">JavaScript</li>
+        <ul>
+            <li>JavaScript Core</li>
+            <li class="marked">DOM</li>
+            <li class="marked">BOM</li>
+        </ul>
+    </ul>
+<script>
+    /* 식별자 API */
+    for(var i=0; i<active.classList.length; i++){
+        console.log(active.classList[i]);
+    }
+    //classList : 객체가 가지고 있는 클래스 를 " " 공백 단위로 구분하여 유사배열로 저장
+
+
+
+    /* 조회 API */
+    var list = document.getElementsByClassName('marked');
+    console.group('document');
+    for(var i=0; i<list.length; i++){
+        console.log(list[i].textContent);
+    }
+    console.groupEnd();
+    //.textContent : 객체/배열에 저장되어있는 요소들의 텍스트를 반환
+    //class가 marked에 해당하는 객체들을 list에 유사배열 형태로 저장하여 textContent로 출력한 예제
+
+    console.group('active');
+    var active = document.getElementById('active');
+    var list = active.getElementsByClassName('marked');
+    for(var i=0; i<list.length; i++){
+        console.log(list[i].textContent);
+    }
+    console.groupEnd();
+    //getElementsByClassName의 대상을 document가 아닌 id(active)값으로 할 경우, active 안의 엘리먼트만 조회한다
+
+
+    /* 속성 API */
+    var t = document.getElementById('target');
+    console.log(t.getAttribute('href')); //id가 target인 객체의 href속성 반환
+    t.setAttribute('href','https://github.com/keynene/javascript'); //속성변경
+    t.hasAttribute('title'); // title이라는 속성을 가지고 있는지 확인
+
+</script>
+</body>
+</html>
