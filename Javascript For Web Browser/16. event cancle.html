@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        <label>prevent event on</label><input id="prevent" type="checkbox" name="eventprevent" value="on" />
+    </p>
+    <p>
+        <a href="https://github.com/keynene" onclick="if(document.getElementById('prevent').checked) return false;">keynene</a>
+    </p>
+    <p>
+        <form action="https://github.com/keynene" onsubmit="if(document.getElementById('prevent').checked) return false;">
+            <input type="submit" />
+        </form>
+    </p>
+</body>
+<script>
+    /* property 방식 event cancle */
+    document.querySelector('a').onclick = function(event){
+        if(document.getElementById('prevent').checked){
+            return false;
+        }
+    };
+    document.querySelector('form').onclick = function(event){
+        if(document.getElementById('prev5ent').checked){
+            return false;
+        }
+    };
+
+
+    /* addEventListener방식 event cancle */
+    document.querySelector('a').addEventListener('click', function(event){
+        if(document.getElementById('prevent').checked){
+            event.preventDefault();
+        }
+    })
+    document.querySelector('form').addEventListener('submit', function(event){
+        if(document.getElementById('prevent').checked){
+            event.preventDefault();
+        }
+    })
+</script>
+</html>
