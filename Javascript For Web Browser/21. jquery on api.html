@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<textarea>
+    <p>on속성 - selector</p>
+    <ul>
+        <li><a href="#">HTML</a></li>
+        <li><a href="#">CSS</a></li>
+        <li><a href="#">JavaScript</a></li>
+    </ul>
+    <br />
+
+    <p>다중 바인딩</p>
+    <input type="text" id="target" />
+    <p id="status"></p>
+
+    <p>이벤트 제거</p>
+    <input type="text" id="target2"></textarea>
+    <input id="remove" type="button" value="remove" />
+    <p id = status2></p>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        /* .on속성 - selector : 필터링 */
+        // ul속성 안의 a, li 클릭 시 이벤트 발생
+        $('ul').on('click','a, li', function(event){
+            console.log(this.tagName);
+        })
+
+        /* 다중바인딩 - focus/blur 2중으로 적용 */
+        $('#target').on('focus blur', function(e){
+            $('#status').html(e.type);
+        })
+
+        /* 이벤트 제거 */
+        var handler = function(e){
+            $('#status2').text(e.type+Math.random());
+            // 이벤트 타입 + 랜덤변수 반환
+        };
+        $('#target2').on('focus blur', handler)
+        $('#target2').on('focus', function(e){
+            alert(1);
+            // focus : handler함수, 1출력 함수 (2개)
+            // blur : handler함수
+        });
+        $('#remove').on('click', function(e){
+            // focus의 handler함수만 제거
+            $('#target2').off('focus', handler);
+            // focus의 함수 2개 다 제거
+            $('#target2').off('focus');
+            // focus, blur 둘 다 함수 제거
+            $('#target2').off('focus blur');
+
+        })
+    </script>
+</body>
+</html>

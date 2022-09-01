@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" id="pure" value="pure" />
+    <input type="button" id="jquery" value="jQuery" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        /* pure */
+        var target = document.getElementById('pure');
+        if(target.addEventListener){
+            target.addEventListener('click', function(event){
+                alert('pure');
+            });
+        } 
+
+        /* jQuery */
+        $('#jquery').on('click', function(event){
+            alert('jQuery');
+        })
+    </script>
+</body>
+</html>
