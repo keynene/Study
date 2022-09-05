@@ -25,9 +25,9 @@
     /* submit */
     var t = document.getElementById('target');
     t.addEventListener('submit', function(event){
-        if(document.getElementById('name').value.length === 0){
+        if(document.getElementById('name').value.length === 0){ // 입력값이 없을 경우
             alert('Name 필드의 값이 누락되었습니다.');
-            event.preventDefault();
+            event.preventDefault();  //이벤트종료
         }
     })
 
