@@ -37,14 +37,29 @@
 
 .find {
     display: block;
+    margin-top: 6px;
     font-size: 10px;
-    color: gray;
-    padding: 3px;
+    text-align: center;
 }
 
 .find_account {
-    width: 80px;
-    margin: 0;
-    float:left;
+    width: 88.5px;
+    height: 25px;
+    display: inline-block;
     text-align: center;
+    /* background-color: gray; */
+}
+
+.find_account:hover {
+    cursor: pointer;
+    background-color: pink;
+}
+
+.find_account>a {
+    text-decoration: none;
+    color: rgb(58, 58, 58);
+}
+
+.find_account>a:visited {
+    text-decoration: none;
 }
