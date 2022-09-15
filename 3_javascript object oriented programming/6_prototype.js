@@ -1,20 +1,20 @@
 // Person은 생성자 new를 통해 Person이 정의될 때마다 실행됨
 function Person(name, first, second){
-    this.name = 'kim';
+    this.name = name;
     this.first = first;
     this.second = second;
 }
 // prototype으로 선언한 Person의 sum의 함수는 최초 1번만 실행됨
 Person.prototype.sum = function(){
-    return 'prototype : '+ this.first + this.second;
+    return 'prototype : '+ (this.first + this.second);
 }
 
 var noi = new Person('noi', 10, 20);
-noi.sum = function(){
-    return 'this : '+ this.first + this.second; 
-}
-var kim = new Person('kim', 10, 10);
 console.log("noi.sum()", noi.sum());
+// noi.sum = function(){
+//     return 'this : '+ this.first + this.second; 
+// }
+var kim = new Person('kim', 10, 10);
 console.log("kim.sum()", kim.sum());
 
 /* 
