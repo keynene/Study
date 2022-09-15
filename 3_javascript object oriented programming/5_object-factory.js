@@ -1,6 +1,6 @@
 // constructor 생성 전
 // 객체 속성이 변하면 객체마다 일일이 수정해줘야 함 (1억개면 1억개 다)
-/*
+
 var noi = {
     name:'noi',
     first:10,
@@ -19,7 +19,8 @@ var kim = {
         return this.first + this.second + this.third;
     }
 }
-*/
+console.log("noi.sum()", noi.sum());
+console.log("kim.sum()", kim.sum());
 
 
 
@@ -42,6 +43,11 @@ var kim = new Person('kim', 10, 10, 10);
 console.log("noi.sum()", noi.sum());
 console.log("kim.sum()", kim.sum());
 
+
+
+
+
+// constructor 예시
 var d1 = new Date('2022-09-15');
 console.log('d1.getFullYear()', d1.getFullYear());
 console.log('d1.getMonth()', d1.getMonth());
