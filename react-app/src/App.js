@@ -4,8 +4,8 @@ function Header(props){
   console.log('props', props.title);
   return <header>
     <h1><a href="/" onClick={(event)=>{
-      event.preventDefault();
-      props.onChangeMode();
+      event.preventDefault(); //a만의 기본속성 제거 (페이지 reload)
+      props.onChangeMode(); //App() 의 함수를 호출
     }}>{props.title}</a></h1>
   </header>
 }
@@ -16,7 +16,7 @@ function Nav(props){
     lis.push(<li key={t.id}>
       <a id={t.id} href={'/read/'+t.id} onClick={(event)=>{
         event.preventDefault();
-        props.onChangeMode(event.target.id);
+        props.onChangeMode(event.target.id); //event를 유발시킨 태그를 의미
       }}>{t.title}</a>
     </li>)
   }
