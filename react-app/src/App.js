@@ -81,7 +81,6 @@ function App(){
       setMode('READ');
       setId(nextId);
       setnextId(nextId+1);
-      console.log(topics[3]);
     }}></Create>
   }
   return (
