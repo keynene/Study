@@ -1,9 +1,8 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
 function Header(props){
-  console.log('props', props.title);
   return <header>
     <h1><a href="/" onClick={(event)=>{
       event.preventDefault(); //a만의 기본속성 제거 (페이지 reload)
@@ -34,14 +33,30 @@ function Article(props){
     {props.body}
   </article>
 }
+function Create(props){
+  return <article>
+    <h2>Create</h2>
+    <form onSubmit={event=>{
+      event.preventDefault();
+      const title = event.target.title.value;
+      const body = event.target.body.value;
+      props.onCreate(title,body);
+    }}>
+      <p><input type="text" name="title" placeholder='title'/></p>
+      <p><textarea name="body" placeholder='body'></textarea></p>
+      <p><input type="submit" value="create"></input></p>
+    </form>
+  </article>
+}
 function App(){
   const [mode, setMode] = useState('WELCOME'); //0번쨰 인자는 'WELCOME'저장, 1번쨰 인자는 함수로 사용
   const [id, setId] = useState(null);
-  const topics = [
+  const [nextId, setnextId] = useState(4);
+  const [topics,setTopics] = useState([
     {id:1, title:'html', body:'html is ...'},
     {id:2, title:'css', body:'css is ...'},
     {id:3, title:'js', body:'javascript is ...'}
-  ];
+  ]);
   /* html, css, javascript 중에 어떤것을 선택했는지 확인하여 해당 값을 전달 */
   let content = null;
   if(mode === 'WELCOME'){
@@ -57,6 +72,17 @@ function App(){
       }
     }
     content = <Article title={title} body={body}></Article>;
+  } else if(mode === 'CREATE'){
+    content = <Create onCreate={(_title,_body)=>{
+      const newTopic = {id:nextId, title:_title, body:_body}
+      const newTopics = [...topics] // topics 복제함
+      newTopics.push(newTopic);
+      setTopics(newTopics);
+      setMode('READ');
+      setId(nextId);
+      setnextId(nextId+1);
+      console.log(topics[3]);
+    }}></Create>
   }
   return (
     <div>
@@ -69,6 +95,10 @@ function App(){
       }}></Nav>
       {content}
       {/* <Article title="Welcome" body="Hello, WEB"></Article> */}
+      <a href="/create" onClick={event=>{
+        event.preventDefault();
+        setMode('CREATE');
+      }}>Create</a>
     </div>
   );
 }
