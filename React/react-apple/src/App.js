@@ -4,54 +4,31 @@
 import { useState } from 'react';
 import './App.css';
 
+
 function App() {
 
-  let post = '강남 우동 맛집'
+  const _date = new Date();
+  const year = _date.getFullYear();
+  const month = _date.getMonth() + 1;
+  const day = _date.getDate();
+  const time = _date.toLocaleTimeString('ko-kr');
+  const now_date = year+'년 '+month+'월 '+day+'일, '+time+'에 발행';
+
   let [글제목, 글제목변경] = useState(['남자코트 추천', '강남 우동맛집', '파이썬독학']);
   let [따봉, 따봉변경] = useState([0,0,0]);
   let [modal, setModal] = useState(false); // 모달여부 true:열림, false:닫힘
   let [title, setTitle] = useState(0);
   let [입력값, 입력값변경] = useState('');
+  let [date, setDate] = useState([now_date, now_date, now_date]);
+
+  
 
   return (
     <div className="App">
       <div className="black-nav">
         <h4>ReactBlog</h4>
       </div>
-      {/* <button onClick={()=>{
-          let copy = [...글제목];
-          copy[0] = '여자코트 추천';
-          글제목변경(copy);
-        }}>Change</button>
-        <button onClick={()=>{
-          let copy = [...글제목];
-          copy.sort();
-          글제목변경(copy);
-        }}>가나다순정렬</button> */}
 
-        
-      {/* <div className="list">
-        <h4>{글제목[0]} <span onClick={()=>{
-          따봉변경(따봉+1)
-        }}>👍</span> {따봉} </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className="list">
-        <h4>{글제목[1]}</h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className="list">
-        <h4 onClick={()=>{
-          if(modal == false){
-            setModal(true);
-          } else {
-            setModal(false);
-          }
-        }}>{글제목[2]}</h4>
-        <p>2월 17일 발행</p>
-      </div> */}
-      
-      
       { //중괄호{}안에 for 등 반복문 사용불가 → map()
         // array.map(a,b) : a에 array[0], array[1], array[2] 저장됨, b는 반복문 돌 떄마다 0부터 1씩 증가함
         // 글제목.map(a) : a = 남자코트추천 등등, b=0~2
@@ -65,7 +42,7 @@ function App() {
                 copy[i] = copy[i]+1;
                 따봉변경(copy); 
               }}>👍</span> {따봉[i]} </h4>
-              <p>2월 17일 발행</p>
+              <p>{date[i]}</p>
               <button onClick={()=>{
                 let copy = [...글제목];
                 copy.splice(i,1);
@@ -79,18 +56,30 @@ function App() {
       <input onChange={(e)=>{
         입력값변경(e.target.value);
       }}></input>
-      <button onClick={()=>{
-        let copy = [...글제목];
-        copy.unshift(입력값);
-        글제목변경(copy)
-      }}>글발행</button>
+
+      { 
+        입력값 == '' ? 
+          <button onClick={()=>{alert('값을 입력해주세요!');}}>글발행</button> 
+        :
+          <button onClick={()=>{
+            let copy_글제목 = [...글제목];
+            let copy_따봉 = [...따봉];
+            let copy_date = [...date];
+
+            copy_글제목.unshift(입력값);
+            copy_따봉.unshift(0);
+            copy_date.unshift(now_date);
+
+            글제목변경(copy_글제목);
+            따봉변경(copy_따봉);
+            setDate(copy_date);
+          }}>글발행</button>
+      }
 
 
-
-      { //컴포넌트 중간에 "중괄호{}" 입력 시 안에 자바스크립트 코드 기입 가능
-        //조건식 작성 시 삼항연산자 이용
+      { 
         // 조건식 ? 참일 때 실행할 코드 : 거짓일 때 실행할 코드
-        modal == true ? <Modal title={title} 글제목={글제목} 글제목변경={글제목변경}/> : null
+        modal == true ? <Modal 따봉 = {따봉} date = {date} title={title} 글제목={글제목} 글제목변경={글제목변경}/> : null
         //부모함수 → 자식함수 state 넘길 때 <Modal 작명={state}/> 하면됨
       }
       
@@ -103,8 +92,8 @@ function App() {
 function Modal(props){
   return (
     <div className="modal">
-      <h4>제목 : {props.글제목[props.title]}</h4>
-      <p>날짜</p>
+      <h4>제목 : {props.글제목[props.title]} <span>👍{props.따봉[props.title]}</span></h4>
+      <p>날짜 : {props.date[props.title]}</p>
       <p>상세내용</p>
       <button onClick={()=>{
         let copy = [...props.글제목]
