@@ -1,7 +1,6 @@
 T = int(input())
-A,B,C = [0]*T, [0]*T, [0]*T
+C = [0]*T
 for i in range(T):
-    A[i],B[i] = input().split()
-    C[i] = int(A[i])+int(B[i])
+    C[i] = sum(map(int,input().split()))
 for i in range(T):
     print(C[i])
