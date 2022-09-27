@@ -1,7 +1,7 @@
 /* eslint-disable */ //warning 제거
 
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 
@@ -44,9 +44,17 @@ function App() {
               }}>👍</span> {따봉[i]} </h4>
               <p>{date[i]}</p>
               <button onClick={()=>{
-                let copy = [...글제목];
-                copy.splice(i,1);
-                글제목변경(copy);
+                let copy_글제목 = [...글제목];
+                let copy_따봉 = [...따봉];
+                let copy_date = [...date];
+
+                copy_글제목.splice(i,1);
+                copy_따봉.splice(i,1);
+                copy_date.splice(i,1);
+
+                글제목변경(copy_글제목);
+                따봉변경(copy_따봉);
+                setDate(copy_date);
               }}>삭제</button>
             </div>
           )
@@ -82,7 +90,7 @@ function App() {
         modal == true ? <Modal 따봉 = {따봉} date = {date} title={title} 글제목={글제목} 글제목변경={글제목변경}/> : null
         //부모함수 → 자식함수 state 넘길 때 <Modal 작명={state}/> 하면됨
       }
-      
+      <Modal2></Modal2>
     </div>
   );
 }
@@ -103,6 +111,27 @@ function Modal(props){
     </div>
   )
 }
+
+/* 클래스로 컴포넌트 구현해보기 */
+class Modal2 extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      name : 'kim',
+      age : 20
+    }
+  }
+  render(){
+    return (
+      <div>안녕{this.state.age}
+        <button onClick={()=>{
+          this.setState({age: 21})
+        }}>버튼</button>
+      </div>
+    )
+  }
+}
+
 
 
 
