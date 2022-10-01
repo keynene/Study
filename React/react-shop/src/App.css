@@ -10,7 +10,13 @@
 }
 
 .nav {
-  background-color:rgb(238, 255, 197);
+  background-color:rgb(250, 250, 161);
+}
+
+.nav-link.a:focus {
+  text-decoration: none;
+  color:000000E6;
+  font-weight: bold;
 }
 
 .App-logo {
