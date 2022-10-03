@@ -19,7 +19,7 @@ let data = [
         title : "Grey Yordan",
         content : "Born in the States",
         price : 130000
-    }
+    },
 ]
 
 export default data;
