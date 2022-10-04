@@ -1,29 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import styled from 'styled-components'
-
-// let YellowBtn = styled.button`
-//   background : ${ props => props.bg }; //yellow 로 하고싶은 경우 react html코드에서 bg="yellow"
-//   color : ${ props => props.bg == 'blue' ? 'white' : 'black' }; //bg가 blue인경우 white, blue가 아니면 black
-//   padding : 10px;
-// `
-
-//  let NewBtn = styled.button(YellowBtn)` //상속가능 (YellowBtn상속한 상태)
-//   font-weight : bold;
-//  `
-
-// class Detail2 extends React.Component {
-//   componentDidMount(){
-//     //컴포넌트가 mount시 여기 코드 실행
-//   }
-//   componentDidUpdate(){
-//     //컴포넌트가 update시 여기 코드 실행
-//   }
-//   componentWillUnmount(){
-//     //컴포넌트가 unmount시 여기 코드 실행
-//   }
-// }
+// import styled from 'styled-components'
 
 function DetailCard(props){
 
@@ -36,20 +14,15 @@ function DetailCard(props){
   
 
   useEffect(()=>{
-    //mount, update시 코드 실행
     let timer = setTimeout(()=>{ setTime(false) },2000); //보통 타이머는 변수에 저장해서 사용 (삭제 or 재사용 가능하게)
     if (isNaN(num) == true){
       alert("숫자만 입력하라니까!");
     }
 
     return ()=>{
-      //useEffect동작 전에 실행   (ex. clean up function)
-      //ex. react 특성상 위의 setTimeout 코드가 계속 실행되어 타이머가 몇천개 되므로 삭제해줄 필요가 있음 (unmount)
       clearTimeout(timer);
     }
   }, [num]) 
-  //뒤에 ", []"추가해주면 최초 mount될 때 1회만 실행됨 (update될 떄는 실행 x)
-  //뒤에 ", [alert]"추가해주면 alert가 변화될 때마다 실행됨
 
   return (
     <div className="container">

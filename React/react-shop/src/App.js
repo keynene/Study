@@ -6,16 +6,18 @@ import bg from './img/bg.png';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import DetailCard from './routes/Detail.js';
+import axios from 'axios';
 
 function App() {
 
-  let [shoes] = useState(data); //data.js의 데이터 import
+  let [shoes, setShoes] = useState(data); //data.js의 데이터 import
   let navigate = useNavigate();
+  const cnt = 0;
+
  
   return (
     <div className="App">
-
-
+      {/* navbar */}
       <Navbar className="nav">  
         <Container>
           <Navbar.Brand href="/">NOI ·_· NARA</Navbar.Brand>
@@ -29,65 +31,52 @@ function App() {
         </Container>
       </Navbar>
 
-
       <Routes>
         {/* 메인페이지 */}
         <Route path="/" element={ 
           <>
             <div className="main-bg" style={{backgroundImage : 'url('+bg+')'}}></div>
             <Container>
-              <Row>
+              <Row md={3}>
                 { shoes.map((data,i)=>{
                     return <Card shoes={shoes[i]} key={i} i={i}></Card>
                 })}
               </Row>
             </Container>
+            
+            {/* 버튼을 눌러 ajax로 데이터 가져오기 */}
+            <button onClick={()=>{
+              //ajax로 데이터 가져오기 (axios 사용)
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((result)=>{ //ajax 데이터 가져오기 성공한 경우
+                let copy = [...shoes, ...result.data];
+                setShoes(copy);
+              })
+
+              /* ajax로 데이터 서버로 보내기 */
+              //axios.post('/url', {data   ex) {name : 'noi'}})
+
+              /* n개의 url에서 데이터 가져오기 */
+              //Promise.all([ axios.get('/url1'), axios.get('/url2') ])
+              //.then(()=>{  실행할코드  })
+
+              .catch((error)=>{
+                console.log(error.response)
+              });
+            }} >more</button>
           </>
         }></Route>
         
-        <Route path="/detail/:id" element={<DetailCard shoes={shoes}></DetailCard>} />
+        {/* 상세페이지 */}
+        <Route path="/detail/:id" element={<DetailCard shoes={shoes} />} />
 
-        {/* 
-          Nested Route
-          route안에 route를 넣는 작업
-          nested route 접속 시 element 2개나 보임
-        */}
-        <Route path="/about" element={<About />} >
-          {/*Outlet을 통해 about/member로 접속하면 about과 member를 동시에 보여줌*/}
-          <Route path="member" element={<div>멤버임</div>}></Route> 
-          <Route path="location" element={<div>위치정보임</div>} ></Route>
-        </Route>
-        <Route path="/event" element={<Event />} >
-          <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>} ></Route>
-          <Route path="two" element={<div>생일기념 쿠폰받기</div>} ></Route>
-        </Route>
-
+        {/* 예외처리페이지 */}
         <Route path="*" element={<div>없는 페이지예요</div>} ></Route>  {/*만들어놓은 route 외의 모든 주소 */}
       </Routes>
-
-
-      
     </div>
   );
 }
 
-function Event(){
-  return (
-    <div>
-      <h4>오늘의 이벤트</h4>
-      <Outlet></Outlet>
-    </div>
-  )
-}
-
-function About(){
-  return (
-    <div>
-      <h4>회사정보임</h4>
-      <Outlet></Outlet>
-    </div>
-  )
-}
 
 function Card(props){
   return(
@@ -102,3 +91,9 @@ function Card(props){
 
 
 export default App;
+
+
+
+
+
+              
