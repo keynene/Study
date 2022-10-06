@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import './App.css';
 import bg from './img/bg.png';
@@ -7,6 +7,8 @@ import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import DetailCard from './routes/Detail.js';
 import axios from 'axios';
+
+
 
 function App() {
 
@@ -68,7 +70,7 @@ function App() {
         }></Route>
         
         {/* 상세페이지 */}
-        <Route path="/detail/:id" element={<DetailCard shoes={shoes} />} />
+        <Route path="/detail/:id" element={ <DetailCard shoes={shoes} /> }/>
 
         {/* 예외처리페이지 */}
         <Route path="*" element={<div>없는 페이지예요</div>} ></Route>  {/*만들어놓은 route 외의 모든 주소 */}
