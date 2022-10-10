@@ -1,6 +1,5 @@
-N = int(input())
-
-def Han(N):
+#내알고리즘
+def HanSu(N):
     if N > 110 : #110보다 클 때 한수는 99에서 더해가야함
         cnt = 99;
         for j in range(110, int(N)+1):
@@ -20,4 +19,19 @@ def Han(N):
 
     return cnt
 
-print(Han(N))
+#검색해본 후 알고리즘
+def hansu(n):
+    cnt = 0;
+    for i in range(1,n+1):
+        han = list(map(int,str(i)))
+        if i < 100 :
+            cnt += 1;
+        elif han[0]-han[1] == han[1]-han[2] :
+            cnt += 1;
+    return cnt
+
+
+
+N = int(input())
+print(HanSu(N))
+print(hansu(N))
