@@ -1,3 +1,25 @@
+#생성자 만드는 함수 d(n)
+def d(n):
+    n = n + sum(map(int,str(n)))
+    return n
+
+#셀프넘버가 아닌 수들(생성자가 있는 수들)이 들어갈 집합
+#※집합은 자동으로 중복 제거하기 때문에 나중에 따로 중복제거해줄 필요가 없음!
+nonSelfNum = set();
+
+#nonSelfNum 집합에 들어갈 수들 넣기 (1~10000)
+for i in range(1,10001):
+    nonSelfNum.add(d(i)) #1 부터 10000까지 d함수에 들어간 생성자들 넣음 (set이므로 중복제거됨)
+
+#셀프넘버 출력하기
+for j in range(1,10001):
+    if j not in nonSelfNum:  #1부터 10000까지 숫자 중 nonSelfNum에 저장된 생성자가 있는 수들을 제외하고 출력함
+        print(j)
+
+
+
+
+
 # def d(n):
 #     m = 0;
 #     if n < 10 :
@@ -27,21 +49,9 @@
 # #     else :
 # #         print(selfNum[i])
 
-#생성자 만드는 함수 d(n)
-def d(n):
-    n = n + sum(map(int,str(n)))
-    return n
 
-#셀프넘버가 아닌 수들(생성자가 있는 수들)이 들어갈 집합
-#※집합은 자동으로 중복 제거하기 때문에 나중에 따로 중복제거해줄 필요가 없음!
-nonSelfNum = set();
 
-#nonSelfNum 집합에 들어갈 수들 넣기 (1~10000)
-for i in range(1,10001):
-    nonSelfNum.add(d(i)) #1 부터 10000까지 d함수에 들어간 생성자들 넣음 (set이므로 중복제거됨)
 
-#셀프넘버 출력하기
-for j in range(1,10001):
-    if j not in nonSelfNum:  #1부터 10000까지 숫자 중 nonSelfNum에 저장된 생성자가 있는 수들을 제외하고 출력함
-        print(j)
+
+
 
