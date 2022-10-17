@@ -28,18 +28,18 @@ print(group)
 
 #다른풀이
 
-import sys
-input = sys.stdin.readline
+# import sys
+# input = sys.stdin.readline
 
-n = input().strip()
-cnt = n
+# n = input().strip()
+# cnt = n
 
-for i in range(n):
-    word = input().strip()
-    for j in range(0, len(word)-1):
-        if word[j] == word[j+1]:
-            pass
-        elif word[j] in word[j+1:]:
-            cnt -= 1
-            break
-print(cnt)
+# for i in range(n):
+#     word = input().strip()
+#     for j in range(0, len(word)-1):
+#         if word[j] == word[j+1]:
+#             pass
+#         elif word[j] in word[j+1:]:
+#             cnt -= 1
+#             break
+# print(cnt)
