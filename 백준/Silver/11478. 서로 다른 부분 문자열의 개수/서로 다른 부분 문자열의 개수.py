@@ -2,11 +2,9 @@ import sys
 input = sys.stdin.readline
 
 s = input().rstrip()
-s_set = set()
+comp = set()
 
-for n in range(len(s)):
-    for i in range(1,len(s)+1):
-        j = n+i
-        s_set.add(s[n:j])
-
-print(len(s_set))
+for i in range(len(s)):
+    for j in range(i+1,len(s)+1):
+        comp.add(s[i:j])
+print(len(comp))
