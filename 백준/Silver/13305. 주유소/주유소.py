@@ -11,10 +11,7 @@ money = won[0]*km[0]
 
 
 for i in range(1,len(won)):
-    if won[i] == min(won):
-        money += won[i]*sum(km[i:])
-        break
-    elif won[i] < p_won:
+    if won[i] < p_won:
         p_won = won[i]
     money += p_won*km[i]
 print(money)
