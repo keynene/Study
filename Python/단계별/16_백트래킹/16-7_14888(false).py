@@ -1,36 +1,61 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import sys
 input = sys.stdin.readline
 
-n = 3
-a = [3, 4, 5]
-f = [1, 0, 1, 0]
+maxR = -1e9
+minR = 1e9
 
-maxN = -1e9
-minN = 1e9
+def dfs(idx, res, sum, sub, mul, div):
+    global maxR
+    global minR
 
-def dfs(idx, total, sum, sub, mul, div):
-    global maxN, minN
+    if idx == n-1:
+        maxR = max(res, maxR)
+        minR = min(res, minR)
+        return [maxR, minR]
 
-    if idx == n:
-        maxN = max(total, maxN)
-        minN = min(total, minN)
-        return
-    
-    if sum :
-        dfs(idx+1, total+a[idx], sum-1,sub, mul, div)
-    if sub :
-        dfs(idx+1, total-a[idx], sum, sub-1, mul, div)
-    if mul :
-        dfs(idx+1, total*a[idx], sum, sub, mul-1, div)
-    if div :
-        if total < 0:
-            total *= -1
-        dfs(idx+1, total//a[idx], sum, sub, mul, div-1)
+    if sum:
+        dfs(idx+1, res+a[idx+1], sum-1, sub, mul, div)
+    if sub:
+        dfs(idx+1, res-a[idx+1], sum, sub-1, mul, div)
+    if mul:
+        dfs(idx+1, res*a[idx+1], sum, sub, mul-1, div)
+    if div:
+        if res < 0:
+            res *= -1
+        dfs(idx+1, res//a[idx+1], sum, sub, mul, div-1)
 
-dfs(1,a[0],f[0],f[1],f[2],f[3])
-print(maxN)
-print(minN)
+n = int(input().rstrip())
+a = list(map(int, input().split()))
+f = list(map(int, input().split()))
 
+
+want = dfs(0, a[0], f[0], f[1], f[2], f[3])
+print(want)
+# print(maxR)
+# print(minR)
 
 
 
