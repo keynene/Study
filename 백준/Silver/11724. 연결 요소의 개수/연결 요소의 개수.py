@@ -13,6 +13,7 @@ cnt = 0
 
 def dfs(v):
     global cnt
+    visited[v] = 1
     for i in amap[v]:
         if not visited[i]:
             visited[i] = 1
@@ -20,7 +21,6 @@ def dfs(v):
 
 for i in range(1, n+1):
     if not visited[i]:
-        visited[i] = 1
         dfs(i)
         cnt += 1
 
