@@ -21,4 +21,5 @@ for i in amap[1]:
     if not visited[i]:
         dfs(i)
 
+
 print(sum(visited)-1)
