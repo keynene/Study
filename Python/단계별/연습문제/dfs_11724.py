@@ -25,6 +25,10 @@ for i in range(1, n+1):
 print(cnt)
 
 
+
+
+
+
 # import sys
 # input = sys.stdin.readline
 
