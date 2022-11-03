@@ -5,13 +5,12 @@ maxR = -1e9
 minR = 1e9
 
 def dfs(idx, res, sum, sub, mul, div):
-    global maxR
-    global minR
+    global maxR, minR
 
     if idx == n:
         maxR = max(res, maxR)
         minR = min(res, minR)
-        return [maxR, minR]
+        return
 
     if sum:
         dfs(idx+1, res+a[idx], sum-1, sub, mul, div)
@@ -20,14 +19,7 @@ def dfs(idx, res, sum, sub, mul, div):
     if mul:
         dfs(idx+1, res*a[idx], sum, sub, mul-1, div)
     if div:
-        if res < 0:
-            res *= -1
-            res = res//a[idx]
-            res *= -1
-        else:
-            res = res//a[idx]
-
-        dfs(idx+1, res, sum, sub, mul, div-1)
+        dfs(idx+1, int(res/a[idx]), sum, sub, mul, div-1)
 
 n = int(input().rstrip())
 a = list(map(int, input().split()))

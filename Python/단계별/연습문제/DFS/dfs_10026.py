@@ -94,6 +94,7 @@ print(acnt, rgcnt)
 # res.append(cnt)
 # print(*res)
 
+
 #12:48 #1:33 #첫번째 풀이
 # import sys
 # input = sys.stdin.readline
