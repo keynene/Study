@@ -54,8 +54,3 @@ while True:
                 for x in range(C):
                     if building[z][y][x] == 'S':
                         bfs(x,y,z)
-
-    
-
-            
-
