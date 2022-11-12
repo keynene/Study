@@ -21,3 +21,4 @@ while True:
         vote[idx] -= 1
         vote[1] += 1
         buy += 1
+        
