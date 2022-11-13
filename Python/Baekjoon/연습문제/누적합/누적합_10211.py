@@ -7,5 +7,3 @@ for _ in range(int(input())):
             data[i] += data[i-1]
     
     print(max(data))
-
-
