@@ -21,7 +21,6 @@ for t in range(1,11):
                         break
                 if cnt == M:
                     ans += 1
-                    print(comp)
                 del comp[0]
             
 
@@ -39,7 +38,6 @@ for t in range(1,11):
                         break
                 if cntj == M:
                     ans += 1
-                    print(compj)
                 del compj[0]
 
 
