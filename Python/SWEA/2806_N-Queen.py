@@ -47,8 +47,11 @@ for t in range(int(input())):
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/master
 # from copy import deepcopy
 
 # dx = [1,1,0,-1,-1,-1,0,1]
