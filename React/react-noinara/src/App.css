@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+}
+
+.main-bg {
+  height: 300px;
+  background-image: url('./img/bg.png');
+  background-size: cover; /* 배경 다 채우게 이미지 확대/축소 (가로세로비율유지) */
+  background-position: center;
+}
