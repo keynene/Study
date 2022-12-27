@@ -3,12 +3,14 @@ import { useState } from 'react';
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
-import { Routes, Route, Link } from 'react-router-dom';
-import DetailCard from './detail.js';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import Detail from './routes/detail.js';
 
 
 function App() {
+
   let [shoes,setShoes] = useState(data)
+  let navigate = useNavigate()
   
   
   return (
@@ -17,10 +19,12 @@ function App() {
       {/* Navbar */}
       <Navbar bg="light" variant="light">
         <Container>
-          <Navbar.Brand href="/">NOI ·_· NARA</Navbar.Brand>
+          <Navbar.Brand href="/" >NOI ·_· NARA</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/detail">Detail</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/') }} >Home</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/detail') }} >Detail</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/about') }} >About</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/event') }} >Event</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -66,11 +70,44 @@ function App() {
             </Container>
           </>
         } ></Route>
-        <Route path='/detail' element={<DetailCard shoes={shoes} />} ></Route>
+        {/* 상세페이지 / url파라미터 이용 */}
+        <Route path='/detail/:id' element={<Detail shoes={shoes} />} ></Route>
 
+        {/* 어바웃페이지 / nested routes 이용 */}
+        <Route path='/about' element={<About/>} >
+          <Route path='member' element={<div>멤버페이지</div>} /> {/* /about/member */}
+          <Route path='location' element={<div>위치정보</div>} /> {/* /about/location */}
+        </Route>
+
+        {/* 이벤트페이지 */}
+        <Route path='/event' element={<Event/>} >
+          <Route path="one" element={<p>첫 주문시 양배추즙 서비스</p>} />
+          <Route path="two" element={<p>생일기념 쿠폰받기</p>} />
+        </Route>
+
+        {/* 예외처리 */}
+        <Route path='*' element={<div>없는페이지예요</div>} />
       </Routes>
     </div>
   );
+}
+
+function Event(){
+  return(
+    <div>
+      <h4>오늘의 이벤트</h4>
+      <Outlet />
+    </div>
+  )
+}
+
+function About(){
+  return(
+    <div>
+      <h4>회사정보임</h4>
+      <Outlet />
+    </div>
+  )
 }
 
 function Card(props){
