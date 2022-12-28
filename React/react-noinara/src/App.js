@@ -5,6 +5,7 @@ import './App.css';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/detail.js';
+import axios from 'axios';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
           <Navbar.Brand href="/" >NOI ·_· NARA</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={()=>{ navigate('/') }} >Home</Nav.Link>
-            <Nav.Link onClick={()=>{ navigate('/detail') }} >Detail</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/detail/0') }} >Detail</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/about') }} >About</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/event') }} >Event</Nav.Link>
           </Nav>
@@ -33,18 +34,18 @@ function App() {
       <Routes>
         {/* 메인페이지 */}
         <Route path="/" element={
-          <>
+          <div>
             {/* MainImg */}
             <div className="main-bg"></div> 
 
             {/* Product */}
             <Container>
-              <Row>
+              <Row md={3}>
                 {/* shoes 자료들을 map을 이용해 갯수만큼 순차적으로 출력  */}
                 {
                   shoes.map((a,i)=>{
                     return(
-                      <Card shoes={shoes} i={i} />
+                      <Card shoes={shoes} i={i} key={i} />
                     )
                   })
                 }
@@ -68,7 +69,25 @@ function App() {
                 
               </Row>
             </Container>
-          </>
+
+            {/* Ajax 버튼누르면 데이터 더 받아오기 */}
+            <button onClick={()=>{
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((result)=>{
+                
+                // let copy = [...shoes]
+                // let newdata = copy.concat(result.data)
+                // setShoes(newdata)
+                
+                let copy = [...shoes, ...result.data]
+                setShoes(copy)
+              })
+              .catch(()=>{
+                console.log('실패함 ㅅㄱ')
+              })
+            }} >버튼</button>
+
+          </div>
         } ></Route>
         {/* 상세페이지 / url파라미터 이용 */}
         <Route path='/detail/:id' element={<Detail shoes={shoes} />} ></Route>
