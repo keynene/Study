@@ -1,5 +1,5 @@
 /* eslint-disable */ //warning 제거
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
@@ -10,8 +10,13 @@ import axios from 'axios';
 
 function App() {
 
-  let [shoes,setShoes] = useState(data)
+  let [shoes, setShoes] = useState(data) //신발데이터
+  let [show, setShow] = useState(false) //데이터로딩화면 출력유무
+  let [more, setMore] = useState(true) //데이터없을떄화면 출력유무
+  let [pushcnt, setPushcnt] = useState(2) //더보기버튼 누른횟수
+
   let navigate = useNavigate()
+
   
   
   return (
@@ -69,23 +74,67 @@ function App() {
                 
               </Row>
             </Container>
+            
+            {/* 로딩화면UI */}
+            {
+              show == true
+              ?
+              <div className="alert alert-warning">⏳...로딩중입니다... </div>
+              : null
+            }
 
-            {/* Ajax 버튼누르면 데이터 더 받아오기 */}
-            <button onClick={()=>{
-              axios.get('https://codingapple1.github.io/shop/data2.json')
-              .then((result)=>{
+            {/* 데이터 없을 때 에러표시 */}
+            {
+              more == false
+              ?
+              <div className="alert alert-warning">🙅🏻‍♀️...끝 끝 쇼핑그만!... </div>
+              : null
+            }
+
+            {/* 버튼 누르면 데이터 더 받아오기(Ajax) / 데이터 없을 때 버튼 사라짐*/}
+            {
+              more == true
+              ? // 데이터 있을 때
+              <button onClick={()=>{
+                setShow(true); //로딩화면 true
+                setPushcnt(pushcnt+1); 
+                //왜 state는 한박자 느리지?(한 번 기본값으로 동작 후 2번째 클릭부터 더함)
                 
-                // let copy = [...shoes]
-                // let newdata = copy.concat(result.data)
-                // setShoes(newdata)
-                
-                let copy = [...shoes, ...result.data]
-                setShoes(copy)
-              })
-              .catch(()=>{
-                console.log('실패함 ㅅㄱ')
-              })
-            }} >버튼</button>
+                // post방법
+                // axios.post('/url',{name : 'kim'})
+
+                // 여러 개 한 번에 get
+                // Promise.all([ axios.get('/url1), axios.get('/url2) ])
+                // .then(()=>{  }).catch(()=>{  })
+
+                if (pushcnt <= 3){
+                  axios.get('https://codingapple1.github.io/shop/data'+ pushcnt +'.json')
+                  .then((result)=>{
+                    
+                    //concat : 배열 2개 합쳐서 새로운 배열에 넣기
+                    // let copy = [...shoes]
+                    // let newdata = copy.concat(result.data)
+                    // setShoes(newdata)
+                    
+                    let copy = [...shoes, ...result.data]
+                    setShoes(copy)
+                    setShow(false); //로딩화면 false
+                  })
+                  .catch(()=>{
+                    console.log('실패함 ㅅㄱ')
+                    setShow(false); //로딩화면 false
+                  })
+                }
+
+                else {
+                  setShow(false); //로딩화면 false
+                  setMore(false); //데이터출려유무 false
+                }
+              }} >더보기</button>
+
+              :  //데이터 없을 때
+              alert("🙅🏻‍♀️더 이상 데이터가 없습니다!")
+            }
 
           </div>
         } ></Route>
