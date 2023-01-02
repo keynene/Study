@@ -44,7 +44,7 @@ function App() {
             <div className="main-bg"></div> 
 
             {/* Product */}
-            <Container>
+            <Container className="product_container" >
               <Row md={3}>
                 {/* shoes 자료들을 map을 이용해 갯수만큼 순차적으로 출력  */}
                 {
@@ -87,7 +87,7 @@ function App() {
             {
               more == false
               ?
-              <div className="alert alert-warning">🙅🏻‍♀️...끝 끝 쇼핑그만!... </div>
+              <div className="alert alert-warning"><p>🙅🏻‍♀️...끝 끝 쇼핑그만!...</p></div>
               : null
             }
 
