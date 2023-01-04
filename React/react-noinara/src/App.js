@@ -1,11 +1,15 @@
 /* eslint-disable */ //warning 제거
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import './App.css';
 import data from './data.js';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
-import Detail from './routes/detail.js';
+import Detail from './routes/Detail.js';
+import Cart from './routes/Cart.js';
 import axios from 'axios';
+
+// context = state보관함
+export let Context1 = createContext()
 
 
 function App() {
@@ -14,8 +18,18 @@ function App() {
   let [show, setShow] = useState(false) //데이터로딩화면 출력유무
   let [more, setMore] = useState(true) //데이터없을떄화면 출력유무
   let [pushcnt, setPushcnt] = useState(2) //더보기버튼 누른횟수
+  let [stock, setStock] = useState([10,11,12]) //상품재고
 
   let navigate = useNavigate()
+
+  useEffect(()=>{
+    // 더보기 버튼 눌렀는데 데이터 없을 때 에러메세지 출력 (출력하면 더보기 버튼 사라짐)
+    {
+      more == false
+      ? alert("🙅🏻‍♀️더 이상 데이터가 없습니다!")
+      : null
+    }
+  }, [pushcnt])
 
   
   
@@ -29,6 +43,7 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link onClick={()=>{ navigate('/') }} >Home</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/detail/0') }} >Detail</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/cart') }} >Cart</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/about') }} >About</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/event') }} >Event</Nav.Link>
           </Nav>
@@ -78,18 +93,10 @@ function App() {
             {/* 로딩화면UI */}
             {
               show == true
-              ?
-              <div className="alert alert-warning">⏳...로딩중입니다... </div>
+              ? <div className="alert alert-warning">⏳...로딩중입니다... </div>
               : null
             }
 
-            {/* 데이터 없을 때 에러표시 */}
-            {
-              more == false
-              ?
-              <div className="alert alert-warning"><p>🙅🏻‍♀️...끝 끝 쇼핑그만!...</p></div>
-              : null
-            }
 
             {/* 버튼 누르면 데이터 더 받아오기(Ajax) / 데이터 없을 때 버튼 사라짐*/}
             {
@@ -133,13 +140,24 @@ function App() {
               }} >더보기</button>
 
               :  //데이터 없을 때
-              alert("🙅🏻‍♀️더 이상 데이터가 없습니다!")
+              <div className="alert alert-warning"><p>🙅🏻‍♀️...끝 끝 쇼핑그만!...</p></div>
             }
 
           </div>
         } ></Route>
         {/* 상세페이지 / url파라미터 이용 */}
-        <Route path='/detail/:id' element={<Detail shoes={shoes} />} ></Route>
+        <Route path='/detail/:id' element={
+          /* 1. Context API */
+          // Detail 컴포넌트로 공유하고 싶은 state Context1에 입력
+          // <Context1.Provider value={{ stock, shoes }}> 
+          //   <Detail shoes={shoes} />
+          // </Context1.Provider>
+
+          <Detail shoes={shoes} />
+        } ></Route>
+
+        {/* 장바구니페이지 */}
+        <Route path="/cart" element={<Cart />} />
 
         {/* 어바웃페이지 / nested routes 이용 */}
         <Route path='/about' element={<About/>} >
@@ -179,11 +197,14 @@ function About(){
 }
 
 function Card(props){
+  let navigate = useNavigate()
   return (
-    <Col sm>
-      <img src={"https://codingapple1.github.io/shop/shoes"+ (props.i+1) +".jpg"} width="80%"/>
-      <h4>{props.shoes[props.i].title}</h4>
-      <p>{props.shoes[props.i].price}</p>
+    <Col sm >
+      <div onClick={()=>{ navigate('/detail/'+props.i) }} >
+        <img src={"https://codingapple1.github.io/shop/shoes"+ (props.i+1) +".jpg"} width="80%" />
+        <h4>{props.shoes[props.i].title}</h4>
+        <p>{props.shoes[props.i].price}</p>
+      </div>
     </Col>
   )
 }

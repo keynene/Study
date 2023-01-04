@@ -1,9 +1,10 @@
 /* eslint-disable */ //warning 제거
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
+import { Context1 } from '../App.js' //App.js에서 Detail.js로 공유받고싶은 state import
 
 let YellowBtn = styled.button`
   background : ${ props => props.bg };
@@ -13,6 +14,9 @@ let YellowBtn = styled.button`
   // bg가 blue이면 color white, 아니면 color black
 
 function Detail(props){
+  //보관함 해체해주는 함수(공유한 state들이 object형태로 저장되어 있음)
+  //꺼내 쓸 컴포넌트마다 정의해주면 됨
+  // let {stock} = useContext(Context1) //꺼내고 싶은 state를 {state명} 으로 저장해서 사용
     
   // useParams() : 유저가 URL파라미터에 입력한 값 가져와줌 (파라미터 사용하기)
   let {id} = useParams();
@@ -51,6 +55,7 @@ function Detail(props){
           : null
         }
 
+
         {/*  sytled-components 예제
         <YellowBtn bg="blue">버튼</YellowBtn>
         <YellowBtn bg="orange">버튼</YellowBtn> 
@@ -59,7 +64,7 @@ function Detail(props){
         {/* 제품상세UI */}
         <div className="row">
           <div className="col-md-6">
-            <img src={"https://codingapple1.github.io/shop/shoes1.jpg"} width="100%" />
+            <img src={"https://codingapple1.github.io/shop/shoes"+(product.id+1)+".jpg"} width="100%" />
           </div>
           <div className="col-md-6">
             <h4 className="pt-5">{product.title}</h4>
@@ -109,6 +114,9 @@ function TabsContent({protab}) {
 //   else if (protab == 2) {
 //     return <div>내용2</div>
 //   }
+
+  //Context API 사용
+  // let {stock} = useContext(Context1)
 
   let [fade, setFade] = useState('')
   useEffect(()=>{
