@@ -2,9 +2,12 @@
 
 import { useContext, useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { addCart } from "./../store.js";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import { Context1 } from '../App.js' //App.js에서 Detail.js로 공유받고싶은 state import
+import store from "./../store.js";
 
 let YellowBtn = styled.button`
   background : ${ props => props.bg };
@@ -28,6 +31,9 @@ function Detail(props){
   let [protab, setProtab] = useState(0); //탭변경
   let [fade, setFade] = useState('');
 
+  // store.js 에서 state 가져오기
+  let state = useSelector((state)=>{ return state }) //모든 state 가져옴
+  let dispatch = useDispatch()
       
   useEffect(()=>{
     // 페이지가 mount, update 마다 코드 실행
@@ -70,7 +76,10 @@ function Detail(props){
             <h4 className="pt-5">{product.title}</h4>
             <p>{product.content}</p>
             <p>{product.price}원</p>
-            <button className="btn btn-danger">주문하기</button> 
+            <button className="btn btn-danger" onClick={()=>{
+              //새로운 상품이 cart state에 추가되는 기능
+              dispatch(addCart(product))
+            }}>장바구니</button> 
           </div>
         </div>
 

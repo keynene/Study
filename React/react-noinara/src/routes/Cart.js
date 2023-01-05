@@ -1,5 +1,9 @@
+/* eslint-disable */ //warning 제거
 import { Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addCount, minusCount, removeCart } from "../store.js";
+import { changeName, increase } from "./../store/userSlice.js";
+
 
 function Cart(){
 
@@ -14,35 +18,47 @@ function Cart(){
   //console.log(state.user) : user 사용하기
   //console.log(state.stock) : stock 사용하기
 
+  let dispatch = useDispatch()
+
   return(
     <div>
+
+      <h6>{ state.user.name } {state.user.age} 의 장바구니</h6>
+      <button onClick={()=>{ dispatch(increase(100,10)) }}>버튼</button>
+
       <Table>
         <thead>
           <tr>
             <th>#</th>
             <th>상품명</th>
             <th>수량</th>
-            <th>변경하기</th>
+            <th>수량</th>
+            <th>삭제</th>
           </tr>
         </thead>
-
-        {/* Redux로 장바구니 상품 가져오기 */}
-        {
-          state.cartProduct.map((a,i)=>{
-            return(
-              <tbody>
-                <tr>
+        <tbody>
+          {/* Redux로 장바구니 상품 가져오기 */}
+          {
+            state.cart.map((a,i)=>{
+              return(
+                <tr key={i}>
                   <td>{(i+1)}</td>
-                  <td>{state.cartProduct[i].name}</td>
-                  <td>{state.cartProduct[i].count}</td>
-                  <td>안녕</td>
+                  <td>{state.cart[i].name}</td>
+                  <td>{state.cart[i].count}</td>
+                  <td>
+                    <button onClick={()=>{ dispatch(addCount(state.cart[i].id)) }}>+</button>
+                    <button onClick={()=>{ dispatch(minusCount(state.cart[i].id)) }}>-</button>
+                  </td>
+                  <td>
+                    <button onClick={()=>{ dispatch(removeCart(state.cart[i].id)) }}>×</button>
+                  </td>
                 </tr>
-              </tbody>
-            )
-          })
-        }
-
+              )
+            })
+          }
+        </tbody>
       </Table>
+
     </div>
   )
 }
