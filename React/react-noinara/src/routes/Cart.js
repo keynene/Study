@@ -32,7 +32,8 @@ function Cart(){
             <th>#</th>
             <th>상품명</th>
             <th>수량</th>
-            <th>수량</th>
+            <th>가격</th>
+            <th>변경</th>
             <th>삭제</th>
           </tr>
         </thead>
@@ -45,6 +46,7 @@ function Cart(){
                   <td>{(i+1)}</td>
                   <td>{state.cart[i].name}</td>
                   <td>{state.cart[i].count}</td>
+                  <td>구현해보기</td>
                   <td>
                     <button onClick={()=>{ dispatch(addCount(state.cart[i].id)) }}>+</button>
                     <button onClick={()=>{ dispatch(minusCount(state.cart[i].id)) }}>-</button>

@@ -157,7 +157,7 @@ function App() {
         } ></Route>
 
         {/* 장바구니페이지 */}
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart shoes={shoes} />} />
 
         {/* 어바웃페이지 / nested routes 이용 */}
         <Route path='/about' element={<About/>} >
