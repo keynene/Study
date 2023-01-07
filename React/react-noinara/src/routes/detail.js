@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart } from "./../store.js";
+import { addCart, addWatched } from "./../store.js";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import { Context1 } from '../App.js' //App.js에서 Detail.js로 공유받고싶은 state import
@@ -33,7 +33,13 @@ function Detail(props){
 
   // store.js 에서 state 가져오기
   let state = useSelector((state)=>{ return state }) //모든 state 가져옴
-  let dispatch = useDispatch()
+
+  //detail페이지 넘어오면 id값을 localStorage에 전달
+  // let watchedState = []
+  // watchedState.push(product.id)
+  // useEffect(()=>{
+  //   localStorage.setItem('watched', JSON.stringify(watchedState))
+  // },[watchedState])
       
   useEffect(()=>{
     // 페이지가 mount, update 마다 코드 실행

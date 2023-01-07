@@ -69,6 +69,22 @@ let cart = createSlice({
   }
 })
 
+// let watchedId = createSlice({
+//   name : 'watchedId',
+//   initialState : [],
+
+//   reducers : {
+//     addWatched(state, action){
+//       if (state.includes(action.payload)){
+//         null
+//       } else{
+//         state.push(action.payload)
+//       }
+//     }
+//   }
+// })
+
+
 export let { addCount, minusCount, addCart, removeCart } = cart.actions
 
 export default configureStore({
@@ -80,6 +96,7 @@ export default configureStore({
 
     user : user.reducer,
     stock : stock.reducer,
-    cart : cart.reducer
+    cart : cart.reducer,
+    // watchedId : watchedId.reducer
   }
 })

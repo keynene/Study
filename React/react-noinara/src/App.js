@@ -1,12 +1,13 @@
 /* eslint-disable */ //warning 제거
 import { createContext, useEffect, useState } from 'react';
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, Outlet, useParams } from 'react-router-dom';
 import './App.css';
 import data from './data.js';
 import Detail from './routes/Detail.js';
 import Cart from './routes/Cart.js';
 import axios from 'axios';
+import { productId } from './store.js';
 
 // context = state보관함
 export let Context1 = createContext()
@@ -22,6 +23,20 @@ function App() {
 
   let navigate = useNavigate()
 
+  //localStorage 사용하여 object데이터 영구적 저장하는 방법
+  // : JSON으로 수정해서 전달 (문자화 시키기)
+  let obj = {name : 'kim'}
+  localStorage.setItem('data', JSON.stringify(obj))  //JSON.stringify() : JSON화 시켜줌
+  let getData = localStorage.getItem('data')
+  console.log(getData) // {"name":"kim"}    JSON형식으로 출력됨 (객체를 꺼내 쓸 수가 없음)
+  console.log(JSON.parse(getData).name) //kim  //JSON.parse() : JS화 시켜줌
+  
+  // let watchedState = []
+  // watchedState.push(product.id)
+  // useEffect(()=>{
+  //   localStorage.setItem('watched', JSON.stringify(watchedState))
+  // })
+  
   useEffect(()=>{
     // 더보기 버튼 눌렀는데 데이터 없을 때 에러메세지 출력 (출력하면 더보기 버튼 사라짐)
     {
@@ -30,6 +45,7 @@ function App() {
       : null
     }
   }, [pushcnt])
+  
 
   
   
