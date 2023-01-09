@@ -17,10 +17,6 @@ let YellowBtn = styled.button`
   // bg가 blue이면 color white, 아니면 color black
 
 function Detail(props){
-  //보관함 해체해주는 함수(공유한 state들이 object형태로 저장되어 있음)
-  //꺼내 쓸 컴포넌트마다 정의해주면 됨
-  // let {stock} = useContext(Context1) //꺼내고 싶은 state를 {state명} 으로 저장해서 사용
-    
   // useParams() : 유저가 URL파라미터에 입력한 값 가져와줌 (파라미터 사용하기)
   let {id} = useParams();
   let product = props.shoes.find((x)=>{ return x.id == id });
@@ -31,15 +27,17 @@ function Detail(props){
   let [protab, setProtab] = useState(0); //탭변경
   let [fade, setFade] = useState('');
 
-  // store.js 에서 state 가져오기
-  let state = useSelector((state)=>{ return state }) //모든 state 가져옴
-
-  //detail페이지 넘어오면 id값을 localStorage에 전달
-  // let watchedState = []
-  // watchedState.push(product.id)
-  // useEffect(()=>{
-  //   localStorage.setItem('watched', JSON.stringify(watchedState))
-  // },[watchedState])
+  //최근 본 상품 : localStorage에 저장
+  useEffect(()=>{
+    //localStorage는 수정이 안 되니까 저장된 정보를 꺼내서 업데이트하고 다시 넣어줘야 함
+    let watchedData = localStorage.getItem('watched')
+    watchedData = JSON.parse(watchedData)
+    watchedData.push(product.id)
+    //중복제거하기
+    watchedData = new Set(watchedData) //집합으로 만들었다가
+    watchedData = Array.from(watchedData) //배열로 바꾸기
+    localStorage.setItem('watched', JSON.stringify(watchedData))
+  },[])
       
   useEffect(()=>{
     // 페이지가 mount, update 마다 코드 실행
@@ -116,22 +114,7 @@ function Detail(props){
   )
 }
 
-/* Tip1 */
-// props 다르게 전송하는 법 {props명}
-// 일일이 props 쓸 때마다 props.protab 이런식으로 안 써도 됨 (현업에서 유용할듯)
 function TabsContent({protab}) {
-//   if (protab == 0){
-//     return <div>내용0</div>
-//   } 
-//   else if (protab == 1){
-//     return <div>내용1</div>
-//   } 
-//   else if (protab == 2) {
-//     return <div>내용2</div>
-//   }
-
-  //Context API 사용
-  // let {stock} = useContext(Context1)
 
   let [fade, setFade] = useState('')
   useEffect(()=>{
@@ -143,11 +126,6 @@ function TabsContent({protab}) {
       clearTimeout(a)
      }
   },[protab])
-
-  /* Tip2 */
-  // if문 없이 array와 array 자료를 불러오는 js 문법으로도 구현 가능
-  //현업에서 추가할 내용 길어지면 append같은 문법써서 관리할듯??
-  // return [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][protab]
 
   //opacity 주기위해 div로 감쌈
   return (

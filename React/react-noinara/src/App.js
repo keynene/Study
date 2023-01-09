@@ -7,7 +7,7 @@ import data from './data.js';
 import Detail from './routes/Detail.js';
 import Cart from './routes/Cart.js';
 import axios from 'axios';
-import { productId } from './store.js';
+import { useQuery } from '@tanstack/react-query';
 
 // context = state보관함
 export let Context1 = createContext()
@@ -22,20 +22,29 @@ function App() {
   let [stock, setStock] = useState([10,11,12]) //상품재고
 
   let navigate = useNavigate()
-
-  //localStorage 사용하여 object데이터 영구적 저장하는 방법
-  // : JSON으로 수정해서 전달 (문자화 시키기)
-  let obj = {name : 'kim'}
-  localStorage.setItem('data', JSON.stringify(obj))  //JSON.stringify() : JSON화 시켜줌
-  let getData = localStorage.getItem('data')
-  console.log(getData) // {"name":"kim"}    JSON형식으로 출력됨 (객체를 꺼내 쓸 수가 없음)
-  console.log(JSON.parse(getData).name) //kim  //JSON.parse() : JS화 시켜줌
   
-  // let watchedState = []
-  // watchedState.push(product.id)
-  // useEffect(()=>{
-  //   localStorage.setItem('watched', JSON.stringify(watchedState))
-  // })
+  /* Nav바 우측에 user이름 가져오기 */
+  let result = useQuery(['작명'], ()=>{
+    return axios.get('https://codingapple1.github.io/userdata.json')
+    .then((axios_data)=>{ return axios_data.data }),
+    { staleTime : 2000 } //refetch(실시간 데이터 받아오기)시간 자율 조정 가능(2초로 설정함)
+  })
+
+
+  /*
+  result.data
+  result.isLoading //true:로딩중, false:로딩중아님
+  result.error //true:실패, false:실패아님
+  */
+
+  /* 최근 본 상품 */
+  //Detail페이지 접속하면 상품id를 가져와서 localStorage에 추가 (Detail.js에 구현)
+  useEffect(()=>{
+    //이미 watched라는 localStorage에 값이 있으면 setItem하지말 것 (없을 때만 동작)
+    if (localStorage.getItem('watched').length <= 0){
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
+  },[])
   
   useEffect(()=>{
     // 더보기 버튼 눌렀는데 데이터 없을 때 에러메세지 출력 (출력하면 더보기 버튼 사라짐)
@@ -63,6 +72,15 @@ function App() {
             <Nav.Link onClick={()=>{ navigate('/about') }} >About</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/event') }} >Event</Nav.Link>
           </Nav>
+          <Nav className="ms-auto">
+            {/* { result.isLoading ? '로딩중' : '반가워요, ' + result.data.name } */}
+
+            {/* 실제 데이터 있을 땐, 좀 더 가시적으로 아래와 같이 표현함 */}
+            { result.isLoading && '로딩중' }
+            { result.error && '에러남' }
+            { result.data && '반가워요, ' + result.data.name }
+          </Nav>
+
         </Container>
       </Navbar>
 
@@ -85,24 +103,6 @@ function App() {
                     )
                   })
                 }
-                
-                {/* 아래와 같이 동작 */}
-                {/* <Col sm>
-                  <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%"/>
-                  <h4>{shose[0].title}</h4>
-                  <p>{shose[0].price}</p>
-                </Col>
-                <Col sm>
-                  <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%"/>
-                  <h4>{shose[1].title}</h4>
-                  <p>{shose[1].price}</p>
-                </Col>
-                <Col sm>
-                  <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%"/>
-                  <h4>{shose[2].title}</h4>
-                  <p>{shose[2].price}</p>
-                </Col> */}
-                
               </Row>
             </Container>
             
@@ -122,23 +122,10 @@ function App() {
                 setShow(true); //로딩화면 true
                 setPushcnt(pushcnt+1); 
                 //왜 state는 한박자 느리지?(한 번 기본값으로 동작 후 2번째 클릭부터 더함)
-                
-                // post방법
-                // axios.post('/url',{name : 'kim'})
-
-                // 여러 개 한 번에 get
-                // Promise.all([ axios.get('/url1), axios.get('/url2) ])
-                // .then(()=>{  }).catch(()=>{  })
 
                 if (pushcnt <= 3){
                   axios.get('https://codingapple1.github.io/shop/data'+ pushcnt +'.json')
                   .then((result)=>{
-                    
-                    //concat : 배열 2개 합쳐서 새로운 배열에 넣기
-                    // let copy = [...shoes]
-                    // let newdata = copy.concat(result.data)
-                    // setShoes(newdata)
-                    
                     let copy = [...shoes, ...result.data]
                     setShoes(copy)
                     setShow(false); //로딩화면 false
@@ -162,15 +149,7 @@ function App() {
           </div>
         } ></Route>
         {/* 상세페이지 / url파라미터 이용 */}
-        <Route path='/detail/:id' element={
-          /* 1. Context API */
-          // Detail 컴포넌트로 공유하고 싶은 state Context1에 입력
-          // <Context1.Provider value={{ stock, shoes }}> 
-          //   <Detail shoes={shoes} />
-          // </Context1.Provider>
-
-          <Detail shoes={shoes} />
-        } ></Route>
+        <Route path='/detail/:id' element={ <Detail shoes={shoes} />} />
 
         {/* 장바구니페이지 */}
         <Route path="/cart" element={<Cart shoes={shoes} />} />
