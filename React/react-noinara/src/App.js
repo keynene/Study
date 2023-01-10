@@ -26,16 +26,9 @@ function App() {
   /* Nav바 우측에 user이름 가져오기 */
   let result = useQuery(['작명'], ()=>{
     return axios.get('https://codingapple1.github.io/userdata.json')
-    .then((axios_data)=>{ return axios_data.data }),
-    { staleTime : 2000 } //refetch(실시간 데이터 받아오기)시간 자율 조정 가능(2초로 설정함)
+    .then((axios_data)=>{ return axios_data.data })
+    staleTime : 2000 //refetch(실시간 데이터 받아오기)시간 자율 조정 가능(2초로 설정함)
   })
-
-
-  /*
-  result.data
-  result.isLoading //true:로딩중, false:로딩중아님
-  result.error //true:실패, false:실패아님
-  */
 
   /* 최근 본 상품 */
   //Detail페이지 접속하면 상품id를 가져와서 localStorage에 추가 (Detail.js에 구현)
@@ -54,9 +47,6 @@ function App() {
       : null
     }
   }, [pushcnt])
-  
-
-  
   
   return (
     <div className="App">
@@ -121,6 +111,7 @@ function App() {
               <button onClick={()=>{
                 setShow(true); //로딩화면 true
                 setPushcnt(pushcnt+1); 
+                console.log(pushcnt)
                 //왜 state는 한박자 느리지?(한 번 기본값으로 동작 후 2번째 클릭부터 더함)
 
                 if (pushcnt <= 3){
