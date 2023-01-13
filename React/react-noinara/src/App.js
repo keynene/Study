@@ -45,7 +45,8 @@ function App() {
   //Detail페이지 접속하면 상품id를 가져와서 localStorage에 추가 (Detail.js에 구현)
   useEffect(()=>{
     //이미 watched라는 localStorage에 값이 있으면 setItem하지말 것 (없을 때만 동작)
-    if (localStorage.getItem('watched').length <= 0){
+    localStorage.setItem('watched', JSON.stringify([]))
+    if (localStorage.getItem('watched').length == 0){
       localStorage.setItem('watched', JSON.stringify([]))
     }
   },[])
