@@ -13,7 +13,9 @@ for i in range(0,12):
 		if i == 6: #Four of a Kind
 			if dice[0] == dice[1] == dice[2]: 
 				ans[i] = dice[0]*4
-			elif dice[0] == dice[1] or dice[0] == dice[2]:
+			elif dice[0] == dice[1]:
+				ans[i] = dice[0]*4
+			elif dice[0] == dice[2]:
 				ans[i] = dice[0]*4
 			elif dice[1] == dice[2]:
 				ans[i] = dice[1]*4
@@ -29,11 +31,11 @@ for i in range(0,12):
 				ans[i] = max(dice[1]*2 + dice[0]*3, dice[1]*3 + dice[0]*2)
 
 		if i == 8: #Little Straight
-			if dice[0] != dice[1] != dice[2] and dice[0] in (1,2,3,4,5) and dice[1] in (1,2,3,4,5) and dice[2] in (1,2,3,4,5):
+			if (dice[0] != dice[1] and dice[0] != dice[2] and dice[1] != dice[2]) and 6 not in dice:
 				ans[i] = 30
 		
 		if i == 9: #Big Straight
-			if dice[0] != dice[1] != dice[2] and dice[0] in (2,3,4,5,6) and dice[1] in (2,3,4,5,6) and dice[2] in (2,3,4,5,6):
+			if (dice[0] != dice[1] and dice[0] != dice[2] and dice[1] != dice[2]) and 1 not in dice:
 				ans[i] = 30
 
 		if i == 10: #Yacht
@@ -44,6 +46,5 @@ for i in range(0,12):
 			ans[i] = sum(dice)+12
 
 print(max(ans))
-
 
 
