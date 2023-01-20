@@ -2,148 +2,78 @@ import sys
 from copy import deepcopy
 input = sys.stdin.readline
 
-def backgammon(x,a):
-	global s,e,ans
+def backgammon(i,a):
+	global ans,s,e
 	arr = deepcopy(a)
 
-	for i in range(2):
-		nx = x+dx[i]
+	if 0<=i<x:
+		arr[i] -= 1
+		arr[i+x] += 1
+		if arr.count(1) == 0:
+			ans = 'YES'
+			s,e = i, i+x
+			return True
 
-		if 0 <= nx <= n :
-			if arr[nx] == 1 or arr[nx] > 2:
-				arr[nx] -= 1
-				arr[x] += 1
-				if arr.count(1) == 0:
-					ans = 'YES'
-					s = x
-					e = nx
-					return True
-	return False
+	elif x <= i <= (i-x):
+		arr[i] -= 1
+		arr[i+x] += 1
+		if arr.count(1) == 0:
+			ans = 'YES'
+			s,e = i, i+x
+			return True
+		arr[i] += 1
+		arr[i+x] -= 1
+
+		#####
+
+		arr[i] += 1
+		arr[i-x] -= 1
+		if arr.count(1) == 0:
+			ans = 'YES'
+			s,e = i, i+x
+			return True
+
+	elif i-x < i <= n:
+		arr[i] += 1
+		arr[i-x] -= 1
+		if arr.count(1) == 0:
+			ans = 'YES'
+			s,e = i-x, i
+			return True
 
 n = int(input().rstrip())
 a = list(map(int, input().split()))
-m = int(input().rstrip())
-s,e,ans = 0,0,'NO'
-dx = [-m,m]
+x = int(input().rstrip())
+s,e,ans = -1,-1,'NO'
+cnt = a.count(1)
 
-for i in range(len(a)):
-	if a[i] == 1:
-		if backgammon(i,a):
+if cnt == 0:
+	for i in range(n):
+		if a[i] > 0:
+			if backgammon(i,a):
+				break
+
+elif cnt == 2:
+	for i in range(len(a)):
+		if a[i] == 1: 
+			if s == -1: s = i
+			else: e = i
+	if e-s == x:
+		ans = 'YES'
+
+elif cnt == 1:
+	for i in range(len(a)):
+		if a[i] == 1: 
+			if i-x >= 0:
+				if a[i-x] > 0:
+					ans = 'YES'
+					s,e = i,i-x
+			if i+x <= n:
+				if a[i+x] > 0:
+					ans = 'YES'
+					s,e = i,i+x
 			break
 
 print(ans)
 if ans == 'YES':
 	print(s,e)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# import sys
-# from copy import deepcopy
-# input = sys.stdin.readline
-
-# def backgammon(x,a):
-# 	global s,e,ans
-# 	nx = x+m
-# 	arr = deepcopy(a)
-
-# 	if nx <= n:
-# 		arr[x] -= 1
-# 		arr[nx] += 1
-# 		if arr.count(1) == 0:
-# 			ans = 'YES'
-# 			s = x
-# 			e = nx
-# 			return True
-# 	return False
-
-# n = int(input().rstrip())
-# a = list(map(int, input().split()))
-# m = int(input().rstrip())
-# s,e,ans = 0,0,'NO'
-
-# for i in range(len(a)):
-# 	if a[i] != 2 and a[i] != 0:
-# 		if backgammon(i,a):
-# 			break
-
-# print(ans)
-# if ans == 'YES':
-# 	print(s,e)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# import sys
-# from copy import deepcopy
-# input = sys.stdin.readline
-
-# def backgammon(x,a):
-# 	global s,e,ans
-# 	arr = deepcopy(a)
-
-# 	for i in range(2):
-# 		nx = x+dx[i]
-
-# 		if nx >= 0 and nx <= len(a)-1:
-# 			arr[x] -= 1
-# 			arr[nx] += 1
-# 			if arr.count(1) == 0:
-# 				ans = 'YES'
-# 				s = x
-# 				e = nx
-# 				return True
-# 	return False
-
-# n = int(input().rstrip())
-# a = list(map(int, input().split()))
-# m = int(input().rstrip())
-# s,e,ans = 0,0,'NO'
-# dx = [-m, m]
-
-# for i in range(len(a)):
-# 	if a[i] == 1 or a[i] > 2:
-
-# 		if i-m >= 0 and i+m<=n :
-# 			for j in range(i-m+1, i+m-1):
-# 				if a.count(1) > 1:
-# 					break
-
-# 		if backgammon(i,a):
-# 			break
-
-# print(ans)
-# if ans == 'YES':
-# 	print(s,e)
