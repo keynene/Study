@@ -18,8 +18,31 @@
 	다른 컴포넌트들은 해당 컴포넌트가 변경되었다는 사실을 알 수가 없으므로
 	해당 컴포넌트를 구독해놓고, 변경될 때마다 발행을 요청하는 모델
 	(여러개의 컴포넌트들을 구독해놓고, 이벤트 발생할 때마다 바뀐 컴포넌트들을 반환)
+
+  actionCreator
+  매번 action-type을 넘길 떄마다 "type:어쩌고", "type:어쩌고" ...
+  반복하기 귀찮으니 타입자체를 반환해버리는 함수
+  payload도 함께 전달함
 */
-function createStore(reducer) {
+
+
+// export function actionCreator(type, payload) {
+//   return {
+//     type,
+//     payload,
+//   }
+// }
+
+//Currying 이용해서 위 함수를 redux스럽게 개선
+//함수의 인자가 여러 개 있을 때 각각의 인자를 할당하는 여러 개의 내부 함수로 쪼갬
+export const actionCreator = type => payload => ({
+  type,
+  payload,
+});
+
+
+
+export function createStore(reducer) {
 	let state;
 	let handlers = []; //구독함수들을 저장
 
