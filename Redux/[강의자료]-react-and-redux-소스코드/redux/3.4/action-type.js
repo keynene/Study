@@ -6,3 +6,5 @@
 	주로 대문자로 대입해두고 export함
 */
 export const INCREASE = 'increase'
+export const DECREASE = 'decrease'
+export const RESET = 'reset'

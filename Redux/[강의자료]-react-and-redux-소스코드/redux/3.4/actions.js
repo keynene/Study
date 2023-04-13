@@ -6,7 +6,7 @@
 	한 번에 입력해주는 로직 정도로 보면 됨
 */
 import { actionCreator } from './redux.js';
-import { INCREASE } from './action-type.js'
+import { INCREASE, DECREASE, RESET } from './action-type.js'
 
 // redux.js의 actionCreator의 함수 구조가 Currying함수로 변경되어서
 // actions 내의 함수 전달 방식도 달라짐
@@ -16,3 +16,5 @@ import { INCREASE } from './action-type.js'
 
 // export const increase = () => actionCreator(INCREASE);
 export const increase =  actionCreator(INCREASE);
+export const decrease =  actionCreator(DECREASE);
+export const reset =  actionCreator(RESET);

@@ -35,11 +35,11 @@
 
 //Currying 이용해서 위 함수를 redux스럽게 개선
 //함수의 인자가 여러 개 있을 때 각각의 인자를 할당하는 여러 개의 내부 함수로 쪼갬
-export const actionCreator = type => payload => ({
+export const actionCreator = (type) => (payload => ({
   type,
   payload,
-});
-
+}));
+// actionCreator(INCREASE)(1);
 
 
 export function createStore(reducer) {
