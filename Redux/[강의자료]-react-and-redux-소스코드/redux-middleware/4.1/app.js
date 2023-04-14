@@ -2,7 +2,12 @@ import { createStore } from './redux.js';
 import * as Actions from './actions.js';
 import reducer from './reducer.js';
 
-const store = createStore(reducer);
+const middleware = store => dispatch => action => {
+  //Currying방법을 쓰는 이유는 redux.js에서 확인!
+  dispatch(action)
+}
+
+const store = createStore(reducer, [middleware]);
 
 const counterDisplay = document.querySelector('#counter');
 const btnIncrease = document.querySelector('#btn-increase');
