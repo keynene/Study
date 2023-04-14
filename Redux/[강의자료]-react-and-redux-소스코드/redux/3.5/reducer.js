@@ -1,22 +1,27 @@
-import * as ActionType from './action-type.js';
+import * as ActionsType from './action-type.js';
 
-const InitializeState = { count: 0 };
+// export function reducer(state = { count: 0 }, action) {
+  //   switch(action.type) {
+    //     case ActionsType.INCREASE:
+    //       return { ...state, count: state.count + 1 };
+    //     case ActionsType.DECREASE:
+    //       return { ...state, count: state.count - 1 };
+    //     case ActionsType.RESET:
+    //       return { ...state, count: 0 };
+    //     default: 
+    //       return { ...state };
+    //   }
+    // }
 
-export function reducer(state = InitializeState , action) {
-  // do something
+const InitializeState = { count:0 };
+export function reducer(state = InitializeState, action) {
   switch(action.type) {
-    case ActionType.INCREASE:
+    case ActionsType.INCREASE:
       return { ...state, count: state.count + 1 };
-    case ActionType.DECREASE:
+    case ActionsType.DECREASE:
       return { ...state, count: state.count - 1 };
-    case ActionType.RESET:
-      fetch('/reset')
-        .then(response => response.json())
-        .then(result => {
-          if(result) {
-            return { ...state, count: 0 };
-          }
-        });      
+    case ActionsType.RESET:
+      return { ...state, count: 0 };
     default: 
       return { ...state };
   }
