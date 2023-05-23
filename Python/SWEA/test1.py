@@ -1,6 +1,15 @@
 #전치행렬
 arr2 = list(zip(*arr))
 
+#2차원배열 max,min
+max(map(max,arr))
+min(map(min,arr))
+
+#2차원배열 정렬
+arr.sort(key=lambda x:(x[0],-x[1]))
+arr.sort(key=lambda x:(x[1], x[0]))
+arr.sort(key=lambda x:-x[1])
+
 #딕셔너리
 dic = {}
 for i in card:
